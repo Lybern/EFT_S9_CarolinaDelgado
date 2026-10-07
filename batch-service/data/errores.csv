@@ -1,0 +1,69 @@
+timestamp,fase,registro_o_linea,tipo_excepcion,mensaje_error
+2026-08-23 20:35:05,PROCESAMIENTO,TransaccionDTO{id=''; fecha='2024-01-25'; monto='10000.00'; tipo='CREDITO'},TransaccionValidationException,El ID de la transacción es obligatorio y no puede ser nulo o vacío.
+2026-08-23 20:35:05,PROCESAMIENTO,TransaccionDTO{id='TX007'; fecha='2024-01-28'; monto='invalid_amount'; tipo='DEBITO'},NumberFormatException,Formato numérico de monto inválido en transacción TX007: invalid_amount
+2026-08-23 20:35:05,PROCESAMIENTO,TransaccionDTO{id='TX006'; fecha='invalid-date'; monto='45000.00'; tipo='DEBITO'},TransaccionValidationException,Fecha inválida con formato no reconocible: invalid-date
+2026-08-23 20:35:05,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INVALID_ID'; fecha='2024-06-20'; transaccion='GIRO'; monto='20000.00'; descripcion='Giro sucursal'},CuentaAnualValidationException,Identificador de cuenta con formato no numérico: INVALID_ID
+2026-08-23 20:35:05,PROCESAMIENTO,CuentaAnualDTO{cuentaId='1005'; fecha='fecha_invalida'; transaccion='DEPOSITO'; monto='80000.00'; descripcion='Deposito en ventanilla'},CuentaAnualValidationException,Fecha con formato inválido o no reconocido: fecha_invalida
+2026-08-23 20:35:05,PROCESAMIENTO,CuentaAnualDTO{cuentaId='1007'; fecha='2024-08-15'; transaccion='DEPOSITO'; monto='invalid_monto'; descripcion='Abono honorarios'},NumberFormatException,Monto con formato numérico inválido: invalid_monto
+2026-08-23 20:36:08,PROCESAMIENTO,TransaccionDTO{id='TX007'; fecha='2024-01-28'; monto='invalid_amount'; tipo='DEBITO'},NumberFormatException,Formato numérico de monto inválido en transacción TX007: invalid_amount
+2026-08-23 20:36:08,PROCESAMIENTO,TransaccionDTO{id='TX006'; fecha='invalid-date'; monto='45000.00'; tipo='DEBITO'},TransaccionValidationException,Fecha inválida con formato no reconocible: invalid-date
+2026-08-23 20:36:08,PROCESAMIENTO,TransaccionDTO{id=''; fecha='2024-01-25'; monto='10000.00'; tipo='CREDITO'},TransaccionValidationException,El ID de la transacción es obligatorio y no puede ser nulo o vacío.
+2026-08-23 20:36:08,PROCESAMIENTO,CuentaAnualDTO{cuentaId='1005'; fecha='fecha_invalida'; transaccion='DEPOSITO'; monto='80000.00'; descripcion='Deposito en ventanilla'},CuentaAnualValidationException,Fecha con formato inválido o no reconocido: fecha_invalida
+2026-08-23 20:36:08,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INVALID_ID'; fecha='2024-06-20'; transaccion='GIRO'; monto='20000.00'; descripcion='Giro sucursal'},CuentaAnualValidationException,Identificador de cuenta con formato no numérico: INVALID_ID
+2026-08-23 20:36:08,PROCESAMIENTO,CuentaAnualDTO{cuentaId='1007'; fecha='2024-08-15'; transaccion='DEPOSITO'; monto='invalid_monto'; descripcion='Abono honorarios'},NumberFormatException,Monto con formato numérico inválido: invalid_monto
+2026-08-24 00:26:36,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-24 00:26:36,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-24 00:26:36,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-24 00:26:36,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-24 00:27:05,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-24 00:27:05,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-24 00:27:05,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-24 00:27:05,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-24 00:29:59,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-24 00:29:59,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-24 00:29:59,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-24 00:29:59,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-24 00:31:30,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-24 00:31:30,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-24 00:31:30,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-24 00:31:30,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-24 00:32:06,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-24 00:32:06,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-24 00:32:06,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-24 00:32:06,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-30 20:31:29,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-30 20:31:29,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-30 20:31:29,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-30 20:31:29,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-30 20:50:16,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-30 20:50:16,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-30 20:50:16,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-30 20:50:16,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-30 20:51:45,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-30 20:51:46,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-30 20:51:46,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-30 20:51:46,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-30 21:11:02,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-30 21:11:02,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-30 21:11:02,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-30 21:11:02,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-30 21:12:40,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-30 21:12:41,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-30 21:12:41,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-30 21:12:41,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-30 21:17:55,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-30 21:17:55,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-30 21:17:55,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-30 21:17:55,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-31 22:27:21,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-31 22:27:21,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-31 22:27:21,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-31 22:27:21,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-31 22:30:19,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-31 22:30:19,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-31 22:30:19,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-31 22:30:19,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
+2026-08-31 22:31:18,PROCESAMIENTO,CuentaInteresDTO{cuentaId=''; nombre='John Doe'; saldo='5000'; edad='30'; tipo='ahorro'},CuentaInteresValidationException,ID de cuenta no puede ser vacío
+2026-08-31 22:31:18,LECTURA,TX_CORRUPTA;invalid;data,FlatFileParseException,Error de parseo CSV
+2026-08-31 22:31:18,PROCESAMIENTO,CuentaAnualDTO{cuentaId='INV_ID'; fecha='2024-01-01'; transaccion='deposito'; monto='1000'; descripcion='Prueba'},CuentaAnualValidationException,ID de cuenta con formato no numérico
+2026-08-31 22:31:18,PROCESAMIENTO,TransaccionDTO{id='TX_ERR_01'; fecha='2024-01-01'; monto='invalid'; tipo='DEBITO'},NumberFormatException,Formato no numérico
