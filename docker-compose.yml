@@ -1,0 +1,174 @@
+services:
+  # -------------------------------------------------------------
+  # 1. BROKER DE MENSAJERIA ACTIVEMQ (Persistencia de eventos JMS)
+  # -------------------------------------------------------------
+  activemq:
+    image: apache/activemq-classic:latest
+    container_name: activemq
+    ports:
+      - "61616:61616" # Puerto TCP OpenWire para Spring Boot (JMS)
+      - "8161:8161"   # Consola Web administrativa (admin/admin)
+    environment:
+      - ACTIVEMQ_ADMIN_LOGIN=admin
+      - ACTIVEMQ_ADMIN_PASSWORD=admin
+    restart: unless-stopped
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 2. CONFIG SERVER (Servidor centralizado de propiedades)
+  # -------------------------------------------------------------
+  config-server:
+    build: ./config-server
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 3. DISCOVERY SERVER (Eureka Service Discovery)
+  # -------------------------------------------------------------
+  discovery-server:
+    build: ./discovery-server
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://admin:gato@config-server:8888
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 4. AUTH SERVER (OAuth 2.0 con emisor JWT RSA)
+  # -------------------------------------------------------------
+  auth-server:
+    build: ./auth-server
+    container_name: auth-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-server
+      - discovery-server
+    environment:
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID:-dummy}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET:-dummy}
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://admin:gato@config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:eureka2026@discovery-server:8761/eureka/
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 5. CORE SERVICE (Banco XYZ Resource Server protegido)
+  # -------------------------------------------------------------
+  core-service:
+    build: ./core-service
+    container_name: core-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - config-server
+      - discovery-server
+      - auth-server
+      - activemq
+    environment:
+      - SERVER_PORT=8084
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://admin:gato@config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:eureka2026@discovery-server:8761/eureka/
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+      - AUTH_SERVER_JWKS_URI=http://auth-server:8080/.well-known/jwks.json
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 6. MS-MENSAJERIA (Consumidor asincrono @JmsListener)
+  # -------------------------------------------------------------
+  ms-mensajeria:
+    build: ./ms-mensajeria
+    container_name: ms-mensajeria
+    ports:
+      - "8085:8085"
+    depends_on:
+      - config-server
+      - discovery-server
+      - activemq
+    environment:
+      - SERVER_PORT=8085
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://admin:gato@config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:eureka2026@discovery-server:8761/eureka/
+      - SPRING_ACTIVEMQ_BROKER_URL=tcp://activemq:61616
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 7. BFF WEB (Backend for Frontend Portal Web)
+  # -------------------------------------------------------------
+  bff-web:
+    build: ./bff-web
+    container_name: bff-web
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-server
+      - core-service
+    environment:
+      - SERVER_PORT=8081
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:eureka2026@discovery-server:8761/eureka/
+      - CORE_SERVICE_URL=http://core-service:8084
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 8. BFF MOVIL (Backend for Frontend App Móvil)
+  # -------------------------------------------------------------
+  bff-movil:
+    build: ./bff-movil
+    container_name: bff-movil
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-server
+      - core-service
+    environment:
+      - SERVER_PORT=8082
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:eureka2026@discovery-server:8761/eureka/
+      - CORE_SERVICE_URL=http://core-service:8084
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 9. BFF CAJERO (Backend for Frontend Cajeros Automáticos ATM)
+  # -------------------------------------------------------------
+  bff-cajero:
+    build: ./bff-cajero
+    container_name: bff-cajero
+    ports:
+      - "8083:8083"
+    depends_on:
+      - discovery-server
+      - core-service
+    environment:
+      - SERVER_PORT=8083
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:eureka2026@discovery-server:8761/eureka/
+      - CORE_SERVICE_URL=http://core-service:8084
+    networks:
+      - banco-net
+
+  # -------------------------------------------------------------
+  # 10. BATCH SERVICE (Spring Batch: 3 Jobs con datos Semana 3)
+  # -------------------------------------------------------------
+  batch-service:
+    build: ./batch-service
+    container_name: batch-service
+    ports:
+      - "8087:8087"
+    environment:
+      - SERVER_PORT=8087
+    networks:
+      - banco-net
+
+networks:
+  banco-net:
+    driver: bridge
