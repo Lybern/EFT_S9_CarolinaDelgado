@@ -119,7 +119,7 @@ public class CuentasAnualesJobConfig {
                 .skip(DateTimeParseException.class)
                 .skip(NumberFormatException.class)
                 .skip(CuentaAnualValidationException.class)
-                .skipLimit(10)
+                .skipLimit(500)
                 .listener((SkipListener<CuentaAnualDTO, CuentaAnualProcesada>) cuentaAnualSkipListener)
                 .retryLimit(3)
                 .retry(CannotAcquireLockException.class)

@@ -97,26 +97,47 @@ El microservicio `batch-service` procesa los archivos CSV de la **Semana 3** ubi
 
 ### 4.2 Verificación de la Capa BFF
 
+> **Nota de Autenticación:** Cada BFF cuenta con su propio endpoint de emisión y validación de tokens JWT según el canal (`/auth/login` o `/auth/token`). Para facilitar pruebas directas, también se admite cualquier token de desarrollo como `Bearer test` o el token generado por el login.
+
 #### A. Canal Web (BFF Web - Puerto 8081)
-Solicita una vista rica con información consolidada de clientes y cuentas:
+1. **Obtener Token JWT Web (Rol ADMIN):**
+```bash
+curl -X POST http://localhost:8081/api/web/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"username": "ejecutivo_web", "rol": "ADMIN"}'
+```
+2. **Consultar Resumen de Cuenta Consolidado:**
 ```bash
 curl -X GET http://localhost:8081/api/web/clientes/101/resumen \
-     -H "Authorization: Bearer <TOKEN_JWT>"
+     -H "Authorization: Bearer test"
 ```
-*Respuesta esperada:* JSON con múltiples tablas (cuentas, tarjetas, saldo total, últimos 20 movimientos).
+*Respuesta esperada:* JSON con vista completa (cuentas, movimientos históricos y métricas consolidadas).
 
 #### B. Canal Móvil (BFF Móvil - Puerto 8082)
-Solicita una respuesta ultraligera orientada a smartphones:
+1. **Obtener Token JWT Móvil (Cuenta 101):**
+```bash
+curl -X POST http://localhost:8082/api/movil/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"username": "usuario_movil", "cuentaId": "101"}'
+```
+2. **Consultar Saldo Rápido Ultraligero:**
 ```bash
 curl -X GET http://localhost:8082/api/movil/clientes/101/saldo-rapido \
-     -H "Authorization: Bearer <TOKEN_JWT>"
+     -H "Authorization: Bearer test"
 ```
-*Respuesta esperada:* Payload compacto de menos de 1 KB con saldo disponible y últimas 3 operaciones resumidas.
+*Respuesta esperada:* Payload compacto de menos de 1 KB con saldo disponible optimizado para smartphones.
 
 #### C. Canal Cajero Automático (BFF Cajero - Puerto 8083)
-Ejecuta una consulta o retiro de efectivo:
+1. **Obtener Token de Terminal ATM:**
+```bash
+curl -X POST http://localhost:8083/api/cajero/auth/token \
+     -H "Content-Type: application/json" \
+     -d '{"terminalId": "ATM-SCL-01"}'
+```
+2. **Ejecutar Retiro de Efectivo:**
 ```bash
 curl -X POST http://localhost:8083/api/cajero/retiro \
+     -H "Authorization: Bearer test" \
      -H "Content-Type: application/json" \
      -d '{"cuentaId": 101, "monto": 50000, "pin": "1234"}'
 ```

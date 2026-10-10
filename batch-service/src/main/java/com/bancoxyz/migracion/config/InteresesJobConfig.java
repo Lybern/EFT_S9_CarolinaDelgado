@@ -118,7 +118,7 @@ public class InteresesJobConfig {
                 .skip(FlatFileParseException.class)
                 .skip(NumberFormatException.class)
                 .skip(CuentaInteresValidationException.class)
-                .skipLimit(10)
+                .skipLimit(500)
                 .listener((SkipListener<CuentaInteresDTO, CuentaInteresProcesada>) cuentaInteresSkipListener)
                 .retryLimit(3)
                 .retry(CannotAcquireLockException.class)

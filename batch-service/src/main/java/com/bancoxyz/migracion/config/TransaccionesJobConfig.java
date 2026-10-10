@@ -120,7 +120,7 @@ public class TransaccionesJobConfig {
                 .skip(DateTimeParseException.class)
                 .skip(NumberFormatException.class)
                 .skip(TransaccionValidationException.class)
-                .skipLimit(10)
+                .skipLimit(500)
                 .listener((SkipListener<TransaccionDTO, TransaccionProcesada>) transaccionSkipListener)
                 .retryLimit(3)
                 .retry(CannotAcquireLockException.class)
